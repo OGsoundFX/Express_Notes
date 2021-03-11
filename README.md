@@ -7,4 +7,6 @@ This repo will contain several mini apps, training apps and reference apps.
 - More to come
 
 #### Basic_Express_Config
-[link to Google!](http://google.com)
+[link to repo](https://github.com/OGsoundFX/Express_Notes/tree/master/Basic_Express_Config)
+
+This is my boilerplate express app template/config.
