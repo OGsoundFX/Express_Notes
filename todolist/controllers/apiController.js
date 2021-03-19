@@ -37,7 +37,7 @@ module.exports = function(app) {
     app.post('/api/todo', function(req, res) {
         
         if (req.body.id) {
-            Todos.findByIdAndUpdate(req.body.id, { todo: req.body.todo, isDone: req.body.isDone, hasAttachment: req.body.hasAttachment }, function(err, todo) {
+            Todos.findByIdAndUpdate(req.body.id, {username: req.body.username, todo: req.body.todo, isDone: req.body.isDone, hasAttachment: req.body.hasAttachment }, function(err, todo) {
                 if (err) throw err;
                 
                 res.send('Success');
