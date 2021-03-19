@@ -25,12 +25,16 @@ app.set('view engine', 'ejs');
 
 // mongoose.connect(getDbConnectionString);
 
-var mongoDB = `mongodb+srv://OG-testing:${process.env.SECRET_KEY}@cluster0.fru3y.mongodb.net/todoListDatabase?retryWrites=true&w=majority`;
+var mongoDB = `${process.env.CONNECTLINK}`;
 mongoose.connect(mongoDB, { useNewUrlParser: true , useUnifiedTopology: true});
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
-// setupController(app);
+setupController(app);
+
+// app.get('/api', (req, res) => {
+//     res.send("hello");
+// })
 
 app.listen(port, () => {
     console.log(`app launched on port ${port}`)
