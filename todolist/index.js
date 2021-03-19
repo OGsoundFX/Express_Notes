@@ -11,6 +11,10 @@ app.use('/assets', express.static(__dirname + '/public'));
 
 app.set('view engine', 'ejs');
 
+app.get('/testing', (req, res) => {
+    res.render('testingviews');
+});
+
 // Setting up database connection
 mongoose.connect(config.getDbConnectionString(), { useNewUrlParser: true , useUnifiedTopology: true});
 const db = mongoose.connection;
