@@ -15,13 +15,17 @@ app.get('/testing', (req, res) => {
     res.render('testingviews');
 });
 
+app.get('/', (req, res) => {
+    res.render('home');
+});
+
 // Setting up database connection
 mongoose.connect(config.getDbConnectionString(), { useNewUrlParser: true , useUnifiedTopology: true});
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
 // Calling the Seed file
-// setupController(app);
+setupController(app);
 apiController(app);
 
 app.listen(port, () => {

@@ -1,5 +1,6 @@
-var Todos = require('../models/todoModel');
-var bodyParser = require('body-parser');
+const Todos = require('../models/todoModel');
+const bodyParser = require('body-parser');
+const urlencodedParser = bodyParser.urlencoded({ extended: false });
 
 module.exports = function(app) {
     
@@ -18,8 +19,31 @@ module.exports = function(app) {
         
         Todos.find({ username: req.params.uname }, function(err, todos) {
             if (err) throw err;
-            
+
             res.send(todos);
+        });
+        
+    });
+
+    app.post('/api/todos/dashboard', urlencodedParser, function(req, res) {
+
+        // res.send(`hello ${req.body.name }`);
+        // console.log(req.body.name);
+        Todos.find({ username: req.body.name }, function(err, todos) {
+            if (err) throw err;
+            
+            const listOfTodos = {};
+            todos.forEach((todo) => {
+                // listOfTodos.push(todo.id)
+                listOfTodos[todo.id] = todo.todo;
+            });
+
+            res.render('dashboard', {
+                name: req.body.name,
+                todos: todos,
+                list: listOfTodos
+            });
+            // res.send(todos[0].username);
         });
         
     });
@@ -68,6 +92,17 @@ module.exports = function(app) {
             res.send('Success');
         })
         
+    });
+
+    app.post('/api/delete', (req, res) => {
+        Todos.findByIdAndRemove(Object.keys(req.body)[0], function(err) {
+            if (err) throw err;
+            res.redirect('/');
+        })
+
+        // Todos.find({ id: req.body.id }, function(err, todo) {
+        //     console.log(todo);
+        // });
     });
     
 }
