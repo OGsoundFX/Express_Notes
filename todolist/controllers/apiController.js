@@ -16,25 +16,18 @@ module.exports = function(app) {
     });
     
     app.get('/api/todos/:uname', function(req, res) {
-        
         Todos.find({ username: req.params.uname }, function(err, todos) {
             if (err) throw err;
-
             res.send(todos);
         });
-        
     });
 
     app.post('/api/todos/dashboard', urlencodedParser, function(req, res) {
-
-        // res.send(`hello ${req.body.name }`);
-        // console.log(req.body.name);
         Todos.find({ username: req.body.name }, function(err, todos) {
             if (err) throw err;
             
             const listOfTodos = {};
             todos.forEach((todo) => {
-                // listOfTodos.push(todo.id)
                 listOfTodos[todo.id] = todo.todo;
             });
 
@@ -43,19 +36,20 @@ module.exports = function(app) {
                 todos: todos,
                 list: listOfTodos
             });
-            // res.send(todos[0].username);
         });
         
     });
-    
-    app.get('/api/todo/:id', function(req, res) {
-       
-       Todos.findById({ _id: req.params.id }, function(err, todo) {
-           if (err) throw err;
-           
-           res.send(todo);
-       });
-        
+
+    app.post('/api/todos/new', (req, res) => {
+        var newTodo = Todos({
+            username: req.body.name,
+            todo: req.body.todo,
+            isDone: false
+        });
+        newTodo.save(function(err) {
+            if (err) throw err;
+            res.redirect(`/api/todos/${req.body.name}`);
+        });
     });
     
     app.post('/api/todo', function(req, res) {
@@ -99,10 +93,13 @@ module.exports = function(app) {
             if (err) throw err;
             res.redirect('/');
         })
+    });
 
-        // Todos.find({ id: req.body.id }, function(err, todo) {
-        //     console.log(todo);
-        // });
+    app.post('/api/done', (req, res) => {
+        Todos.findByIdAndUpdate(req.body.id, { isDone: true }, function(err) {
+            if (err) throw err;
+            res.redirect(`/api/todos/${Object.keys(req.body)[0]}`);
+        })
     });
     
 }
