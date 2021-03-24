@@ -4,12 +4,19 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link rel="stylesheet" href="./style/stylesheet.css">
     <title>Document</title>
 </head>
 <body>
     <h1 class="container">Welcome to your Todo Program</h1>
-    <form action="/api/todos/dashboard"  method="POST">
+    <form class="container" action="/api/todos/dashboard"  method="POST">
         <input type="text" placeholder="type in your name" name="name">
+        <input type="submit">
+    </form>
+    <h4 class="container margin-top">Create a new Todo list</h4>
+    <form class="container" action="/api/todos/new"  method="POST">
+        <input type="text" placeholder="type in your name" name="name">
+        <input type="text" placeholder="type in your todo" name="todo">
         <input type="submit">
     </form>
 </body>

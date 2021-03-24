@@ -7,7 +7,9 @@ const apiController = require('./controllers/apiController');
 
 const port = process.env.PORT || 8080;
 
-app.use('/assets', express.static(__dirname + '/public'));
+// create access to public folder, makes it possible to reach
+// the stylsheet file in the head of the home.ejs file
+app.use(express.static(__dirname + '/public'));
 
 app.set('view engine', 'ejs');
 
